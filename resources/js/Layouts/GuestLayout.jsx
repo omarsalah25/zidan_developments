@@ -1,5 +1,5 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import Header from '@/Components/Header';
+import Header from '@/Components/header';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';

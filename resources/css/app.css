@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Dubai-Bold";
+    src: url("/fonts/Dubai-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Dubai-Medium";
+    src: url("/fonts/Dubai-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Dubai-Regular";
+    src: url("/fonts/Dubai-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Dubai-SemiBold";
+    src: url("/fonts/Dubai-SemiBold.ttf") format("truetype");
+}
+
+@theme {
+    /* Custom theme values */
+    --font-Baskerville: Baskerville, serif;
+    --font-Kepler: Kepler, serif;
+    --font-utopia-bold: utopia-bold, serif;
+    --font-utopia-regular: utopia-regular, serif;
+    --font-utopia-semibold: utopia-semibold, serif;
+
+    --font-Poppins-regular: Poppins-regular, serif;
+    --font-Poppins-medium: Poppins-medium, serif;
+    --font-Poppins-semibold: Poppins-semibold, serif;
+    --font-Poppins-bold: Poppins-bold, serif;
+}

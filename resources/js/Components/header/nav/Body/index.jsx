@@ -1,9 +1,17 @@
 import { motion } from 'framer-motion';
 import styles from './style.module.scss';
 import { blur, translate } from '../../anim';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 export default function Body({ links, selectedLink, setSelectedLink }) {
+    const { localeData } = usePage().props;
+    const [currentLocale, setCurrentLocale] = useState(localeData?.languageCode);
+
+    useEffect(() => {
+        setCurrentLocale(localeData?.languageCode);
+    }, [localeData?.languageCode]);
+
 
     const getChars = (word) => {
         let chars = [];
@@ -23,17 +31,18 @@ export default function Body({ links, selectedLink, setSelectedLink }) {
     }
 
     return (
-        <div className={styles.body}>
+        <div className={styles.body} dir={currentLocale === 'ar' ? 'rtl' : 'ltr'}>
             {
                 links.map((link, index) => {
                     const { title, href } = link;
                     return <Link key={`l_${index}`} href={href}>
                         <motion.p
+                            className='rtl:font-Dubai-regular '
                             onMouseOver={() => { setSelectedLink({ isActive: true, index }) }}
                             onMouseLeave={() => { setSelectedLink({ isActive: false, index }) }}
                             variants={blur}
                             animate={selectedLink.isActive && selectedLink.index != index ? "open" : "closed"}>
-                            {getChars(title)}
+                            {currentLocale === 'en' ? getChars(title) : title}
                         </motion.p>
                     </Link>
                 })

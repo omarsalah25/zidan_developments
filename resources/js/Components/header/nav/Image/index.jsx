@@ -7,8 +7,9 @@ export default function Index({ src, isActive }) {
     return (
         <motion.div variants={opacity} initial="initial" animate={isActive ? "open" : "closed"} className={styles.imageContainer}>
             <img
-                src={`/images/${src}`}
+                src={`/navbarImages/${src}`}
                 fill={true}
+                className='h-full w-full object-cover object-center'
                 alt="image"
             />
         </motion.div>

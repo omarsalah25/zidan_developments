@@ -30,20 +30,24 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-
-          // Get the locale data that was shared in the route
-          $localeData = session()->get('localeData', [
-
-            'data' => [], // Default to empty array if no locale data in session
-            'languageCode' => session()->get('locale', 'en'), // Use session locale or default to 'en'
-            'languageFlag' => 'gb', // Default to GB flag for English
-        ]);
-
-        // If locale is not set in session, we default to 'en' and set it in session
+        // Ensure a default locale is set
         if (!session()->has('locale')) {
             session()->put('locale', 'en');
             app()->setLocale('en');
         }
+
+        $locale = session()->get('locale', 'en');
+        $languageFlag = $locale === 'ar' ? 'sa' : 'gb'; // Example flag logic
+
+        // Load the language JSON file
+        $localesPath = base_path('app/locales');
+        $languageFilePath = "{$localesPath}/{$locale}.json";
+
+        $translations = file_exists($languageFilePath)
+            ? json_decode(file_get_contents($languageFilePath), true)
+            : [];
+
+        // Fallback to English if the file doesn't exist
         return [
             ...parent::share($request),
             'auth' => [
@@ -53,7 +57,12 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'localeData' => $localeData,
+            'localeData' => [
+                'data' => $translations,
+                'languageCode' => $locale,
+                'languageFlag' => $languageFlag,
+            ],
         ];
     }
+
 }

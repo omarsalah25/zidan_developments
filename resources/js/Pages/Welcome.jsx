@@ -17,7 +17,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         };
     }
         , []);
-    console.log(localeData.data);
+    console.log(localeData);
     return (
         <GuestLayout>
             <Head title="Home" />

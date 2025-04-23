@@ -24,6 +24,9 @@
     },
     "dependencies": {
         "aos": "^2.3.4",
-        "framer-motion": "^12.6.5"
+        "framer-motion": "^12.6.5",
+        "lucide-react": "^0.503.0",
+        "swiper": "^11.2.6",
+        "swiper-react": "^1.0.0"
     }
 }

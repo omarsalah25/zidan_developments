@@ -15,7 +15,7 @@ export default function index() {
             <div className={`${styles.bar} gap-5`}>
                 <div className='w-full max-h-8 object-cover'>
 
-                    <img src='logo_dark.png' className='h-full w-fit mb-5 cursor-pointer ' onClick={() => router.get('/')} />
+                    <img src='logo_dark.png' className='h-full w-fit object-contain mb-5 cursor-pointer ' onClick={() => router.get('/')} />
                 </div>
 
                 <div onClick={() => { setIsActive(!isActive) }} className={styles.el}>

@@ -1,7 +1,10 @@
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Pagination } from 'swiper/modules';
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     const [isMobile, setIsMobile] = useState(false);
     const { localeData } = usePage().props;
@@ -75,7 +78,77 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
             </div>
 
-        </GuestLayout>
+            <div className='flex flex-col p-12 gap-10 min-h-[450px] bg-gray-100 overflow-hidden'
+                dir={localeData.languageCode === 'ar' ? 'rtl' : 'ltr'}
+            >
+                <div className='flex flex-col items-center justify-center gap-8 h-full w-full '>
+
+                    <h2 data-aos='fade-down' className='text-gray-800 md:text-4xl text-2xl text-nowrap font-bold'>
+                        {localeData.data.Our_projects}
+                    </h2>
+                    <div data-aos='zoom-in' className='grid grid-cols-1 text-gray-800 md:grid-cols-3 gap-8 p-12 h-[450px] bg-gray-100 overflow-hidden w-full'>
+                        <div className='w-full border border-black'></div>
+                        <div className='w-full border border-black'></div>
+                        <div className='w-full border border-black'></div>
+                    </div>
+                </div>
+
+
+                <div className='flex flex-col items-center justify-center gap-8 h-full w-full '>
+                    <h2 data-aos='fade-in' className='text-gray-800 md:text-4xl text-2xl   font-bold'>
+                        {localeData.data.Our_projects}
+                    </h2>
+                    <h2 data-aos='fade-in' className='text-gray-800 text-base text-nowrap font-bold'>
+                        {localeData.data.Who_we_are_dec}
+                    </h2>
+                    <Swiper data-aos='fade-up' pagination={{ clickable: true }}
+                        modules={[Pagination]} className="!h-full !w-full !min-h-96"
+                        style={{
+                            '--swiper-pagination-color': '#000',
+                            '--swiper-pagination-bullet-inactive-color': '#000',
+                            '--swiper-pagination-bullet-inactive-opacity': '0.4',
+                            '--swiper-pagination-bullet-inactive-scale': '0.6',
+                            '--swiper-pagination-bullet-inactive-width': '10px',
+                            '--swiper-pagination-bullet-inactive-height': '10px',
+                        }}
+                        breakpoints={{
+                            0: {
+                                slidesPerView: 1,
+                                spaceBetween: 10,
+                            },
+                            640: {
+                                slidesPerView: 2,
+                                spaceBetween: 15,
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 20,
+                            },
+                            1024: {
+                                slidesPerView: 3,
+                                spaceBetween: 25,
+                            },
+                            1280: {
+                                slidesPerView: 4,
+                                spaceBetween: 30,
+                            },
+                        }}
+                    >
+                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                    </Swiper>
+                </div>
+
+            </div>
+
+        </GuestLayout >
 
     );
 }

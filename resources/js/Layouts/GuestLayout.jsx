@@ -1,4 +1,5 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import Footer from '@/Components/Footer1';
 import Header from '@/Components/header';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -18,6 +19,7 @@ export default function GuestLayout({ children }) {
             <div className='flex flex-col min-h-screen '>
                 {children}
             </div>
+            <Footer />
 
         </>
 

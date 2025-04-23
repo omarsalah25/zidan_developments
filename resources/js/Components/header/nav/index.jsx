@@ -32,7 +32,7 @@ export default function Index() {
         },
         {
             title: localeData.data.About_us,
-            href: "/shop",
+            href: "/about",
             src: "about.jpg"
         },
         {
@@ -42,7 +42,7 @@ export default function Index() {
         },
         {
             title: localeData.data.Our_projects,
-            href: "/lookbook",
+            href: "/projects",
             src: "projects.jpg"
         },
         {

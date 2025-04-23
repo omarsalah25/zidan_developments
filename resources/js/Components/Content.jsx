@@ -50,17 +50,17 @@ const Nav = () => {
             </div>
             <div className='flex flex-col gap-4'>
                 <h3 className='mb-2 uppercase text-gray-600'>Contact</h3>
-                <div className='flex gap-2 text-gray-600' >
-                    <MapPinIcon />
-                    <p>1234 Street Name, City, State, 12345</p>
+                <div className='flex gap-2 ' >
+                    <MapPinIcon className='text-gray-600' />
+                    <p className='text-gray-600'>1234 Street Name, City, State, 12345</p>
                 </div>
-                <div className='flex gap-2 text-gray-600' >
-                    <Phone />
-                    <p>+1 234 567 890</p>
+                <div className='flex gap-2 ' >
+                    <Phone className='text-gray-600' />
+                    <p className='text-gray-600'>+1 234 567 890</p>
                 </div>
-                <div className='flex gap-2 text-gray-600' >
-                    <Mail />
-                    <p>info@ZidanDevelopments.com</p>
+                <div className='flex gap-2 ' >
+                    <Mail className='text-gray-600' />
+                    <p className='text-gray-600'>info@ZidanDevelopments.com</p>
                 </div>
 
             </div>

@@ -23,6 +23,8 @@
         "vite": "^6.2.4"
     },
     "dependencies": {
+        "@ant-design/icons": "^5.6.1",
+        "antd-icons": "^0.1.0-alpha.1",
         "aos": "^2.3.4",
         "framer-motion": "^12.6.5",
         "lucide-react": "^0.503.0",

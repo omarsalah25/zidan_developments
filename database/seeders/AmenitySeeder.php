@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Amenity;
+use App\Models\Amenity;
 use Illuminate\Database\Seeder;
 
 class AmenitySeeder extends Seeder

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Unit;
-use Project;
+use App\Models\Project;
+use App\Models\Unit;
 use Illuminate\Database\Seeder;
 
 class UnitSeeder extends Seeder

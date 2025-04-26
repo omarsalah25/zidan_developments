@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-
+use App\Models\Unit;
+use App\Models\UnitImage;
 use Illuminate\Database\Seeder;
-use Unit;
-use UnitImage;
+
 
 class UnitImageSeeder extends Seeder
 {

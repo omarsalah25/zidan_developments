@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use ConstructionUpdate;
+use App\Models\ConstructionUpdate;
+use App\Models\Unit;
 use Illuminate\Database\Seeder;
-use Unit;
 
 class ConstructionUpdateSeeder extends Seeder
 {

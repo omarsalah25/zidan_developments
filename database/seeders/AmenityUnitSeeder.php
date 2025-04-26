@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Amenity;
+use App\Models\Amenity;
+use App\Models\Unit;
 use Illuminate\Database\Seeder;
-use Unit;
 
 class AmenityUnitSeeder extends Seeder
 {

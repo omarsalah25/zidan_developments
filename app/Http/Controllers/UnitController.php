@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Amenity;
 use App\Http\Requests\StoreUnitRequest;
 use App\Http\Requests\UpdateUnitRequest;
+use App\Models\Amenity;
+use App\Models\Project;
+use App\Models\Unit;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
-use Project;
-use Unit;
+
 
 class UnitController extends Controller
 {

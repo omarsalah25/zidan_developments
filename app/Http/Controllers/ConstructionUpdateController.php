@@ -1,11 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
-use ConstructionUpdate;
+use App\Models\ConstructionUpdate;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
-use Unit;
 
 class ConstructionUpdateController extends Controller
 {

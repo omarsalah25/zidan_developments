@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Project;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;
-use Project;
 
 class ProjectController extends Controller
 {

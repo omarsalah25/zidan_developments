@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Amenity;
+use App\Models\Amenity;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Redirect;

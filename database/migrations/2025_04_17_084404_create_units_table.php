@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('desc')->nullable();
             $table->string('title_ar');
             $table->text('desc_ar')->nullable();
-            $table->string('thumbnail')->nullable();
+            $table->longText('thumbnail')->nullable();
             $table->json('images')->nullable(); // for optional gallery (or you can manage separately)
             $table->foreignId('project_id')->constrained()->onDelete('cascade');
             $table->string('location')->nullable();

@@ -18,6 +18,7 @@ class ProjectFactory extends Factory
             'title_ar' => 'عنوان ' . $this->faker->word(),
             'desc' => $this->faker->paragraph(),
             'desc_ar' => 'وصف ' . $this->faker->sentence(),
+            'slug' => Str::slug( $this->faker->word()),
             'image' => 'projects/' . $this->faker->image('public/storage/projects', 640, 480, null, false),
             'status' => $this->faker->randomElement(['active', 'inactive']),
         ];

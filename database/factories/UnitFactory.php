@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Unit;
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class UnitFactory extends Factory
 {
@@ -18,6 +19,7 @@ class UnitFactory extends Factory
             'title_ar' => 'وحدة ' . $this->faker->word(),
             'desc' => $this->faker->paragraph(),
             'desc_ar' => 'تفاصيل ' . $this->faker->sentence(),
+            'slug'=>Str::slug($this->faker->word()),
             'thumbnail' => 'units/' . $this->faker->image('public/storage/units', 640, 480, null, false),
             'location' => $this->faker->address(),
             'location_ar' => 'الموقع: ' . $this->faker->city(),

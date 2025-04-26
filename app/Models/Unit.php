@@ -12,6 +12,7 @@ class Unit extends Model
 
     protected $fillable = [
         'title', 'desc', 'title_ar', 'desc_ar',
+        'slug',
         'thumbnail', 'images', 'project_id',
         'location', 'location_ar',
         'construction_update', 'construction_update_ar'

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('desc')->nullable();
             $table->string('title_ar');
             $table->text('desc_ar')->nullable();
-            $table->string('image')->nullable();
+            $table->longText('image')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

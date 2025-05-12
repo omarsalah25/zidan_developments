@@ -11,7 +11,7 @@ class ConstructionUpdateController extends Controller
 {
     public function index()
     {
-        $updates = ConstructionUpdate::with('unit')->get();
+        $updates = ConstructionUpdate::with('unit:id,project_id,title,title_ar,desc,desc_ar,slug')->get();
         return Inertia::render('ConstructionUpdates/Index', ['updates' => $updates]);
     }
 
@@ -32,10 +32,12 @@ class ConstructionUpdateController extends Controller
         ConstructionUpdate::create($request->all());
         return Redirect::route('construction-updates.index')->with('success', 'Update created');
     }
-
-    public function show(ConstructionUpdate $constructionUpdate)
+    public function show($slug)
     {
-        return Inertia::render('ConstructionUpdates/Show', ['update' => $constructionUpdate->load('unit')]);
+        $unit = Unit::where('slug', $slug)->firstOrFail();
+        $constructionUpdate = ConstructionUpdate::where('unit_id', $unit->id)->with('unit')->firstOrFail();
+
+        return Inertia::render('ConstructionUpdates/Show', ['update' => $constructionUpdate]);
     }
 
     public function edit(ConstructionUpdate $constructionUpdate)

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ConstructionUpdateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -83,11 +85,20 @@ Route::get('/about', function () {
     return Inertia::render('About');
 })->name('about');
 
+Route::get('/contact', function () {
+    return Inertia::render('Contact');
+})->name('contact');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/projects',[ProjectController::class, 'index']);
+Route::get('/projects/{slug}',[ProjectController::class, 'show']);
+Route::get('/units',[UnitController::class, 'index']);
+Route::get('/units/{slug}',[UnitController::class, 'show']);
+Route::get('/construction',[ConstructionUpdateController::class, 'index']);
+Route::get('/construction-updates/{slug}',[ConstructionUpdateController::class, 'show']);
 
 
 

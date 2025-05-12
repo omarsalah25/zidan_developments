@@ -21,7 +21,7 @@ const Section1 = () => {
 const Section2 = () => {
     return (
         <div className='flex justify-between items-end'>
-            <h1 className='w-[30vw] md:w-[14vw] leading-[0.8] mt-10'><img src='logo_dark.png' className='w-full object-cover' /></h1>
+            <h1 className='w-[30vw] md:w-[14vw] leading-[0.8] mt-10'><img src='/logo_dark.png' className='w-full object-cover' /></h1>
             <div className='flex gap-8'>
                 <a className='cursor-pointer' href='https://facebook.com' target='_blank'>
                     <FacebookIcon />
@@ -40,7 +40,7 @@ const Section2 = () => {
 
 const Nav = () => {
     return (
-        <div className='flex justify-between shrink-0 gap-20'>
+        <div className='flex md:flex-row flex-col justify-between shrink-0 gap-20'>
             <div className='flex flex-col gap-2'>
                 <h3 className='mb-2 uppercase text-gray-600'>Sitemap</h3>
                 <p>Home</p>

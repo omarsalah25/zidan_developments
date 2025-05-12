@@ -18,6 +18,8 @@ class Unit extends Model
         'construction_update', 'construction_update_ar'
     ];
 
+    public $with =['project', 'amenities', 'unitImages'];
+
     public function project()
     {
         return $this->belongsTo(Project::class);

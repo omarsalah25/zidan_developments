@@ -27,8 +27,9 @@ class ProjectController extends Controller
         return Redirect::route('projects.index')->with('success', 'Project created');
     }
 
-    public function show(Project $project)
+    public function show($slug)
     {
+        $project = Project::where('slug', $slug)->with('units')->firstOrFail();
         return Inertia::render('Projects/Show', ['project' => $project]);
     }
 

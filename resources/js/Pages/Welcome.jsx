@@ -98,7 +98,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                     <h2 data-aos='fade-in' className='text-gray-800 md:text-4xl text-2xl   font-bold'>
                         {localeData.data.Our_projects}
                     </h2>
-                    <h2 data-aos='fade-in' className='text-gray-800 text-base text-nowrap font-bold'>
+                    <h2 data-aos='fade-in' className='text-gray-800 text-base lg:text-nowrap font-bold'>
                         {localeData.data.Who_we_are_dec}
                     </h2>
                     <Swiper data-aos='fade-up' pagination={{ clickable: true }}

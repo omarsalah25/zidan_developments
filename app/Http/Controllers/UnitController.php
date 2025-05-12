@@ -48,9 +48,10 @@ class UnitController extends Controller
         return Redirect::route('units.index')->with('success', 'Unit created');
     }
 
-    public function show(Unit $unit)
+    public function show( $slug)
     {
-        return Inertia::render('Units/Show', ['unit' => $unit->load(['images', 'amenities', 'project'])]);
+        $unit = Unit::where('slug', $slug)->with(['project', 'unitImages', 'amenities'])->firstOrFail();
+        return Inertia::render('Units/Show', ['unit' => $unit->load(['unitImages', 'amenities', 'project'])]);
     }
 
     public function edit(Unit $unit)

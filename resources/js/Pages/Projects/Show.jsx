@@ -9,7 +9,7 @@ import { Pagination } from 'swiper/modules';
 
 const Show = ({ project }) => {
     const { localeData } = usePage().props;
-    console.log(localeData)
+    console.log(project)
     const isRtl = localeData.languageCode === 'ar' ? true : false;
 
     return (
@@ -27,7 +27,8 @@ const Show = ({ project }) => {
 
                         <div className=' relative'>
 
-                            <img src='/login_bg.jpg' className='w-full max-w-7xl min-h-[600px] object-cover' />
+                            <img src={'/storage/' + project.image}
+                                onError={(e) => e.target.src = '/login_bg.jpg'} className='w-full max-w-7xl min-h-[600px] object-cover' />
                         </div>
 
                     </div>

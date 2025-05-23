@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AmenityController;
 use App\Http\Controllers\ConstructionUpdateController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -89,9 +90,44 @@ Route::get('/contact', function () {
     return Inertia::render('Contact');
 })->name('contact');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    // Dashboard Home
+    Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
+
+    /**
+     * Projects
+     */
+    Route::resource('projects', ProjectController::class);
+    Route::get('admin/projects', [ProjectController::class, 'adminIndex'])->name('projects.adminIndex');
+    Route::get('admin/projects/create', [ProjectController::class, 'create'])->name('projects.create');
+    Route::get('admin/projects/{slug}', [ProjectController::class, 'AdminShow'])->name('projects.show');
+    Route::get('admin/projects/{slug}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+    Route::post('admin/projects/{id}/update', [ProjectController::class, 'update'])->name('projects.update');
+
+    /**
+     * Units
+     */
+    Route::resource('units', UnitController::class);
+
+    /**
+     * Amenities
+     */
+    Route::resource('amenities', AmenityController::class);
+
+    /**
+     * Construction Updates
+     */
+    Route::resource('construction-updates', ConstructionUpdateController::class)->parameters([
+        'construction-updates' => 'update'
+    ]);
+});
+
 
 Route::get('/projects',[ProjectController::class, 'index']);
 Route::get('/projects/{slug}',[ProjectController::class, 'show']);

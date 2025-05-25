@@ -13,12 +13,12 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::with('units')->get();
+        $projects = Project::with('units')->orderBy('created_at', 'desc')->get();
         return Inertia::render('Projects/Index', ['projects' => $projects]);
     }
     public function adminIndex()
     {
-        $projects = Project::with('units')->get();
+        $projects = Project::with('units')->orderBy('created_at', 'desc')->get();
         return Inertia::render('Admin/Projects/Index', ['projects' => $projects]);
     }
 
@@ -27,10 +27,27 @@ class ProjectController extends Controller
         return Inertia::render('Admin/Projects/Create');
     }
 
-    public function store(StoreProjectRequest $request)
+    public function store(Request $request)
     {
-        Project::create($request->validated());
-        return Redirect::route('projects.index')->with('success', 'Project created');
+        // dd($request->all());
+       $project = Project::create([
+        'title' => $request->title,
+        'title_ar' => $request->title_ar,
+        'desc' => $request->desc,
+        'desc_ar' => $request->desc_ar,
+        'status' => $request->status,
+        'slug' => str($request->title)->slug(),
+    ]);
+
+    // Correctly access the uploaded file
+    if ($request->hasFile('image.file.originFileObj')) {
+        $imageFile = $request->file('image')['file']['originFileObj'];
+        $project->image = $imageFile->store('projects', 'public');
+    }
+
+    $project->save();
+
+        return redirect('/admin/projects')->with('success', 'Project created');
     }
 
     public function show($slug)
@@ -61,7 +78,6 @@ class ProjectController extends Controller
         $project->desc = $request->desc;
         $project->desc_ar = $request->desc_ar;
         $project->status = $request->status;
-        $project->image = $request->image;
         // $project->update($request->only([
         //     'title'=> $request->title,
         //     'title_ar' => $request->title_ar,
@@ -79,9 +95,10 @@ class ProjectController extends Controller
         return redirect()->back()->with('success', 'Project updated');
     }
 
-    public function destroy(Project $project)
+    public function destroy($id)
     {
+        $project = Project::findOrFail($id);
         $project->delete();
-        return Redirect::route('projects.index')->with('success', 'Project deleted');
+        return redirect('/admin/projects/')->with('success', 'Project deleted');
     }
 }

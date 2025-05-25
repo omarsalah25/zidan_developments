@@ -1,7 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import React from 'react';
 import { Table, Button, Space, Tooltip } from 'antd';
-import { Link, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import {
     EyeOutlined,
     EditOutlined,
@@ -50,11 +50,13 @@ const Index = ({ projects }) => {
                         </Link>
                     </Tooltip>
                     <Tooltip title="Delete">
-                        <Button
-                            icon={<DeleteOutlined />}
-                            danger
-                            onClick={() => handleDelete(record.slug)}
-                        />
+                        <Link href={`/admin/projects/${record.id}/delete`}>
+                            <Button
+                                icon={<DeleteOutlined />}
+                                danger
+                            />
+                        </Link>
+
                     </Tooltip>
                 </Space>
             ),
@@ -70,9 +72,10 @@ const Index = ({ projects }) => {
 
     return (
         <AuthenticatedLayout header="Projects">
+            <Head title="Projects" />
             <div className="p-4 flex flex-col">
-                <Link href="/admin/projects/create">
-                    <Button type="primary">Create Project</Button>
+                <Link href="/admin/projects/create" className="mb-4 w-fit">
+                    <Button type="primary" className='w-fit'>Create Project</Button>
                 </Link>
                 <Table
                     rowKey="id"

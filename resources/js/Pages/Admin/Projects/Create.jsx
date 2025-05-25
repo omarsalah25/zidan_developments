@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form, Input, Button, Select, Card } from 'antd';
-import { router } from '@inertiajs/react';
+import { Form, Input, Button, Select, Card, Upload } from 'antd';
+import { Head, router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { UploadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -10,13 +11,14 @@ const Create = () => {
     const [form] = Form.useForm();
 
     const onFinish = (values) => {
-        router.post('/admin/projects', values);
+        router.post('/admin/projects/store', values);
     };
 
     return (
-        <AuthenticatedLayout header="Create Project">
+        <AuthenticatedLayout >
+            <Head title={`Create Project`} />
             <div className="max-w-4xl mx-auto mt-6">
-                <Card title="New Project" bordered>
+                <Card title="Create Project" bordered>
                     <Form
                         form={form}
                         layout="vertical"
@@ -51,7 +53,7 @@ const Create = () => {
                         </Form.Item>
 
                         <Form.Item
-                            label="Description"
+                            label="Description (Arabic)"
                             hasFeedback
                             name="desc_ar"
                             rules={[{ required: true, message: 'Please enter a description' }]}
@@ -64,8 +66,9 @@ const Create = () => {
                             hasFeedback
                             name="status"
                             rules={[{ required: true, message: 'Please select status' }]}
+                            defaultValue="active"
                         >
-                            <Select>
+                            <Select >
                                 <Option value="active">Active</Option>
                                 <Option value="inactive">Inactive</Option>
                             </Select>
@@ -74,14 +77,39 @@ const Create = () => {
                             label="image"
                             hasFeedback
                             name="image"
-                            rules={[{ required: true, message: 'Please select image' }]}
                         >
-                            <Input type='file' />
+                            <Upload
+                                name="image"
+                                action="/upload"
+                                listType="picture"
+                                accept="image/*"
+
+                                maxCount={1}
+                                beforeUpload={(file) => {
+                                    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+                                    if (!isJpgOrPng) {
+                                        message.error('You can only upload JPG/PNG file!');
+                                    }
+                                    return isJpgOrPng;
+                                }}
+                                onChange={(info) => {
+                                    if (info.file.status === 'done') {
+                                        message.success(`${info.file.name} file uploaded successfully`);
+                                    }
+                                }}
+                            >
+                                <Button icon={<UploadOutlined />}>Upload</Button>
+                            </Upload>
                         </Form.Item>
+                        {/*
+                        <img src={'/storage/' + project.image}
+                            onError={(e) => e.target.src = '/login_bg.jpg'}
+                            alt="Project Image"
+                            className='size-64 object-contain p-2 bg-black my-5' /> */}
 
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
-                                Update Project
+                                Create Project
                             </Button>
                         </Form.Item>
                     </Form>

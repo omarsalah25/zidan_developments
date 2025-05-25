@@ -106,9 +106,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::get('admin/projects', [ProjectController::class, 'adminIndex'])->name('projects.adminIndex');
     Route::get('admin/projects/create', [ProjectController::class, 'create'])->name('projects.create');
+    Route::post('admin/projects/store', [ProjectController::class, 'store'])->name('projects.store');
     Route::get('admin/projects/{slug}', [ProjectController::class, 'AdminShow'])->name('projects.show');
     Route::get('admin/projects/{slug}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
     Route::post('admin/projects/{id}/update', [ProjectController::class, 'update'])->name('projects.update');
+    Route::get('admin/projects/{id}/delete', [ProjectController::class, 'destroy'])->name('projects.delete');
 
     /**
      * Units

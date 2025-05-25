@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Select, Card, Upload, message } from 'antd';
-import { router } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { UploadOutlined } from '@ant-design/icons';
 
@@ -21,7 +21,8 @@ const Edit = ({ project }) => {
     };
 
     return (
-        <AuthenticatedLayout header={`Edit Project: ${project.title}`}>
+        <AuthenticatedLayout >
+            <Head title={`Edit Project: ${project.title}`} />
             <div className="max-w-4xl mx-auto mt-6">
                 <Card title="Edit Project" bordered>
                     <Form
@@ -113,7 +114,9 @@ const Edit = ({ project }) => {
                             </Upload>
                         </Form.Item>
 
-                        <img src={'/storage/' + project.image} className='size-64 object-contain p-2 bg-black my-5' />
+                        <img src={'/storage/' + project.image}
+                            onError={(e) => e.target.src = '/login_bg.jpg'}
+                            className='size-64 object-contain p-2 bg-black my-5' />
 
                         <Form.Item>
                             <Button type="primary" htmlType="submit">

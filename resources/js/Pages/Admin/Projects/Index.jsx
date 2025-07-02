@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import React from 'react';
-import { Table, Button, Space, Tooltip } from 'antd';
+import { Table, Button, Space, Tooltip, Popconfirm } from 'antd';
 import { Head, Link, router } from '@inertiajs/react';
 import {
     EyeOutlined,
@@ -49,15 +49,22 @@ const Index = ({ projects }) => {
                             <Button icon={<EditOutlined />} />
                         </Link>
                     </Tooltip>
-                    <Tooltip title="Delete">
-                        <Link href={`/admin/projects/${record.id}/delete`}>
-                            <Button
-                                icon={<DeleteOutlined />}
-                                danger
-                            />
-                        </Link>
 
-                    </Tooltip>
+                    <Popconfirm
+                        title="Are you sure you want to delete this project?"
+                        okText="Yes"
+                        cancelText="No"
+                        onConfirm={() => {
+                            // handle the delete logic here, for example:
+                            router.get(`/admin/projects/${record.id}/delete`);
+                        }}
+                    >
+                        <Button
+                            icon={<DeleteOutlined />}
+                            danger
+                        />
+                    </Popconfirm>
+
                 </Space>
             ),
         },

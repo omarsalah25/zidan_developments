@@ -116,6 +116,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
      * Units
      */
     Route::resource('units', UnitController::class);
+    Route::get('admin/units', [UnitController::class, 'adminIndex'])->name('units.adminIndex');
+    Route::get('admin/units/create', [UnitController::class, 'create'])->name('units.create');
+    Route::post('admin/units/store', [UnitController::class, 'store'])->name('units.store');
+    Route::get('admin/units/{slug}', [UnitController::class, 'AdminShow'])->name('units.show');
+    Route::get('admin/units/{slug}/edit', [UnitController::class, 'edit'])->name('units.edit');
+    Route::post('admin/units/{id}/update', [UnitController::class, 'update'])->name('units.update');
+    Route::get('admin/units/{id}/delete', [UnitController::class, 'destroy'])->name('units.delete');
 
     /**
      * Amenities

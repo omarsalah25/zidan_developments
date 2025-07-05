@@ -30,7 +30,7 @@ class UnitController extends Controller
     {
         $projects = Project::all();
         $amenities = Amenity::all();
-        return Inertia::render('Units/Create', [
+        return Inertia::render('Admin/Units/Create', [
             'projects' => $projects,
             'amenities' => $amenities,
         ]);
@@ -38,53 +38,48 @@ class UnitController extends Controller
 
    public function store(Request $request)
 {
+
+    // dd($request->all());
     // Validate the request
-    $validated = $request->validate([
-        'title' => 'required|string|max:255',
-        'title_ar' => 'required|string|max:255',
-        'desc' => 'nullable|string',
-        'desc_ar' => 'nullable|string',
-        'status' => 'required|string',
-        'project_id' => 'required|exists:projects,id',
-        'amenities' => 'nullable|array',
-        'amenities.*' => 'exists:amenities,id',
-        'images' => 'nullable|array',
-        'images.*.file.originFileObj' => 'file|image|max:2048',
-    ]);
+
 
     $unit = Unit::create([
-        'title' => $validated['title'],
-        'title_ar' => $validated['title_ar'],
-        'desc' => $validated['desc'] ?? null,
-        'desc_ar' => $validated['desc_ar'] ?? null,
-        'status' => $validated['status'],
-        'project_id' => $validated['project_id'],
-        'slug' => \Illuminate\Support\Str::slug($validated['title']),
+        'title' => $request->title,
+        'title_ar' => $request->title_ar,
+        'desc' => $request->desc ?? null,
+        'desc_ar' => $request->desc_ar ?? null,
+        'status' => $request->status,
+        'project_id' => $request->project_id,
+        'slug' => \Illuminate\Support\Str::slug($request->title),
     ]);
 
     // Attach amenities if provided
-    if (!empty($validated['amenities'])) {
-        $unit->amenities()->sync($validated['amenities']);
+    if (!empty($request->amenities)) {
+        $unit->amenities()->sync($request->amenities);
     }
 
-    if ($request->hasFile('image.file.originFileObj')) {
-        $imageFile = $request->file('image')['file']['originFileObj'];
-        $unit->image = $imageFile->store('units', 'public');
+    if ($request->hasFile('thumbnail.file.originFileObj')) {
+        $imageFile = $request->file('thumbnail')['file']['originFileObj'];
+        // dd($imageFile);
+        $unit->thumbnail = $imageFile->store('units', 'public');
     }
 
     // Handle Ant Design style file structure: images[].file.originFileObj
-    if ($request->has('images')) {
+    if (!empty($request->images) && is_array($request->images)) {
         foreach ($request->images as $img) {
-            if (isset($img['file']['originFileObj'])) {
-                $storedImage = $img['file']['originFileObj']->store('unit-images', 'public');
-                $unit->images()->create([
+            if (isset($img['originFileObj']) && $img['originFileObj']->isValid()) {
+                $storedImage = $img['originFileObj']->store('unit-images', 'public');
+                $unit->unitImages()->create([
                     'image' => $storedImage,
                 ]);
             }
         }
     }
 
-    return Redirect::route('units.index')->with('success', 'Unit created');
+    $unit->save();
+
+
+    return redirect('/admin/units')->with('success', 'Units created');
 }
 
 
@@ -100,12 +95,13 @@ class UnitController extends Controller
         return Inertia::render('Units/Show', ['unit' => $unit->load(['unitImages', 'amenities', 'project'])]);
     }
 
-    public function edit(Unit $unit)
+    public function edit( $slug)
     {
+        $unit=Unit::whereSlug($slug)->first();
         $projects = Project::all();
         $amenities = Amenity::all();
-        return Inertia::render('Units/Edit', [
-            'unit' => $unit->load('amenities'),
+        return Inertia::render('Admin/Units/Edit', [
+            'unit' => $unit,
             'projects' => $projects,
             'amenities' => $amenities,
         ]);

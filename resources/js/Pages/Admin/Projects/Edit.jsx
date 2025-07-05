@@ -95,7 +95,6 @@ const Edit = ({ project }) => {
                                 action="/upload"
                                 listType="picture"
                                 accept="image/*"
-
                                 maxCount={1}
                                 beforeUpload={(file) => {
                                     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';

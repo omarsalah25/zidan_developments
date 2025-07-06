@@ -11,7 +11,7 @@ class ConstructionUpdateController extends Controller
 {
     public function index()
     {
-        $updates = ConstructionUpdate::with('unit:id,project_id,title,title_ar,desc,desc_ar,slug')->get();
+        $updates = ConstructionUpdate::with('unit:id,project_id,title,title_ar,desc,desc_ar,slug,updated_at')->orderByDesc('updated_at')->get();
         return Inertia::render('ConstructionUpdates/Index', ['updates' => $updates]);
     }
 

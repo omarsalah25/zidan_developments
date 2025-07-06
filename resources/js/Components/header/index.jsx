@@ -3,15 +3,19 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { opacity, background } from './anim';
 import Nav from './nav';
-import { Link, router } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { LanguageToggle } from '../ToggleButton';
 
 export default function index() {
 
     const [isActive, setIsActive] = useState(false);
+    const { localeData } = usePage().props;
+    const isRtl = localeData.languageCode === 'ar';
+    const menuLabel = isRtl ? "القائمة" : "Menu";
+    const closeLabel = isRtl ? "إغلاق" : "Close";
 
     return (
-        <div className={`${styles.header} overflow-hidden`}>
+        <div className={`${styles.header} overflow-hidden `} >
             <div className={`${styles.bar} gap-5`}>
                 <div className='w-full max-h-8 object-cover'>
 
@@ -21,8 +25,8 @@ export default function index() {
                 <div onClick={() => { setIsActive(!isActive) }} className={styles.el}>
                     <div className={`${styles.burger} ${isActive ? styles.burgerActive : ""}`}></div>
                     <div className={styles.label}>
-                        <motion.p variants={opacity} animate={!isActive ? "open" : "closed"}>Menu</motion.p>
-                        <motion.p variants={opacity} animate={isActive ? "open" : "closed"}>Close</motion.p>
+            <motion.p className='font-Dubai-bold' variants={opacity} animate={!isActive ? "open" : "closed"}>{menuLabel}</motion.p>
+            <motion.p className='font-Dubai-bold' variants={opacity} animate={isActive ? "open" : "closed"}>{closeLabel}</motion.p>
                     </div>
 
                 </div>

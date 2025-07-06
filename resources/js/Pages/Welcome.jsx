@@ -1,11 +1,12 @@
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
+import ProjectCard from '@/Components/ProjectCard';
+export default function Welcome({ auth, laravelVersion, phpVersion,projects }) {
     const [isMobile, setIsMobile] = useState(false);
     const { localeData } = usePage().props;
 
@@ -23,7 +24,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     console.log(localeData);
     return (
         <GuestLayout>
-            <Head title="Home" />
+            <Head title={localeData.data.ZidanDevelopments} />
 
             <div className='min-h-screen h-dvh  w-full relative overflow-hidden'>
                 <video
@@ -39,7 +40,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 <div className='bg-black/50 absolute top-0 left-0 w-full h-full flex justify-center items-center '>
 
                     <div data-aos='fade-up' className='flex flex-col items-center justify-center p-12 gap-8 h-full w-full '>
-                        <h2 className='text-gray-200 text-base font-bold'>
+                        <h2 className='text-gray-200 text-xl font-medium md:text-2xl text-nowrap '>
                             {localeData.data.Welcome}
                         </h2>
                         <h2 className='text-gray-200 md:text-4xl text-2xl text-nowrap font-bold'>
@@ -65,40 +66,40 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
                 </div>
                 <div data-aos={'fade-left'} className='w-full flex flex-col gap-3 overflow-hidden'>
-                    <h2 className='text-gray-800 text-base font-Dubai-medium  text-start rtl:text-start'>
+                    <h2 className='text-gray-800 text-lg font-Dubai-medium  text-start rtl:text-start'>
                         {localeData.data.Who_we_are}
                     </h2>
-                    <h2 className='text-gray-800 text-2xl font-Dubai-bold  text-start rtl:text-start'>
+                    <h2 className='text-gray-800 text-4xl font-Dubai-bold  text-start rtl:text-start'>
                         {localeData.data.ZidanDevelopments}
                     </h2>
-                    <p className='text-gray-600 text-base font-Dubai-regular text-start  rtl:text-start'>
-                        {localeData.data.Who_we_are_dec}
+                    <p className='text-gray-600 text-lg font-Dubai-regular text-start  rtl:text-start'>
+                        {localeData.data.AboutZidanDevelopments}
                     </p>
                 </div>
 
             </div>
 
-            <div className='flex flex-col p-12 gap-10 min-h-[450px] bg-gray-100 overflow-hidden'
+            <div className='flex flex-col p-5 gap-10 min-h-[450px] bg-gray-100 overflow-hidden'
                 dir={localeData.languageCode === 'ar' ? 'rtl' : 'ltr'}
             >
                 <div className='flex flex-col items-center justify-center gap-8 h-full w-full '>
 
-                    <h2 data-aos='fade-down' className='text-gray-800 md:text-4xl text-2xl text-nowrap font-bold'>
-                        {localeData.data.Our_projects}
+                    <h2 data-aos='fade-down' className='text-gray-800 md:text-4xl text-2xl text-nowrap font-bold capitalize'>
+                        {localeData.data.Latest_Our_projects}
                     </h2>
-                    <div data-aos='zoom-in' className='grid grid-cols-1 text-gray-800 md:grid-cols-3 gap-8 p-12 h-[450px] bg-gray-100 overflow-hidden w-full'>
-                        <div className='w-full border border-black'></div>
-                        <div className='w-full border border-black'></div>
-                        <div className='w-full border border-black'></div>
+                    <div data-aos='zoom-in' className='grid grid-cols-1 text-gray-800 md:grid-cols-2 gap-8 min-h-[450px] bg-gray-100 overflow-hidden w-full'>
+                       {projects.map((project, index) => (
+                             <ProjectCard key={index} project={project} />
+))}
                     </div>
                 </div>
 
 
                 <div className='flex flex-col items-center justify-center gap-8 h-full w-full '>
-                    <h2 data-aos='fade-in' className='text-gray-800 md:text-4xl text-2xl   font-bold'>
-                        {localeData.data.Our_projects}
+                    <h2 data-aos='fade-in' className='text-gray-800 md:text-4xl text-2xl capitalize   font-bold'>
+                        {localeData.data.Our_Portfolio}
                     </h2>
-                    <h2 data-aos='fade-in' className='text-gray-800 text-base lg:text-nowrap font-bold'>
+                    <h2 data-aos='fade-in' className='text-gray-600 text-lg lg:text-nowrap font-bold'>
                         {localeData.data.Who_we_are_dec}
                     </h2>
                     <Swiper data-aos='fade-up' pagination={{ clickable: true }}
@@ -134,15 +135,15 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             },
                         }}
                     >
-                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='size-72'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
                     </Swiper>
                 </div>
 

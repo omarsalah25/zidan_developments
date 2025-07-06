@@ -37,7 +37,7 @@ export default function Body({ links, selectedLink, setSelectedLink }) {
                     const { title, href } = link;
                     return <Link key={`l_${index}`} href={href}>
                         <motion.p
-                            className='rtl:font-Dubai-regular '
+                            className='rtl:font-Dubai-medium '
                             onMouseOver={() => { setSelectedLink({ isActive: true, index }) }}
                             onMouseLeave={() => { setSelectedLink({ isActive: false, index }) }}
                             variants={blur}

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             AmenitySeeder::class,
             AmenityUnitSeeder::class,
             ConstructionUpdateSeeder::class,
+            UserSeeder::class,
 
 
         ]);

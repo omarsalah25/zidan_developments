@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AmenityController;
 use App\Http\Controllers\ConstructionUpdateController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UnitController;
@@ -72,14 +73,7 @@ Route::post('/locale', function (Request $request) {
     return back()->withErrors(['locale' => 'Invalid locale selected.']);
 });
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [FrontendController::class, 'Welcome'])->name('welcome');
 
 
 Route::get('/about', function () {
@@ -103,7 +97,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /**
      * Projects
      */
-    Route::resource('projects', ProjectController::class);
     Route::get('admin/projects', [ProjectController::class, 'adminIndex'])->name('projects.adminIndex');
     Route::get('admin/projects/create', [ProjectController::class, 'create'])->name('projects.create');
     Route::post('admin/projects/store', [ProjectController::class, 'store'])->name('projects.store');
@@ -115,7 +108,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /**
      * Units
      */
-    Route::resource('units', UnitController::class);
     Route::get('admin/units', [UnitController::class, 'adminIndex'])->name('units.adminIndex');
     Route::get('admin/units/create', [UnitController::class, 'create'])->name('units.create');
     Route::post('admin/units/store', [UnitController::class, 'store'])->name('units.store');
@@ -129,12 +121,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
      */
     Route::resource('amenities', AmenityController::class);
 
-    /**
-     * Construction Updates
-     */
-    Route::resource('construction-updates', ConstructionUpdateController::class)->parameters([
-        'construction-updates' => 'update'
-    ]);
+
 });
 
 

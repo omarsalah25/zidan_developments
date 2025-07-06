@@ -1,7 +1,7 @@
-import { Layout, Menu, Drawer, Button } from 'antd';
+import { Layout, Menu, Drawer, Button, Spin } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
-import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { Link, router, usePage } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 
 const { Header, Sider, Content } = Layout;
 
@@ -33,6 +33,49 @@ export default function AuthenticatedLayout({ children, header }) {
             ))}
         </Menu>
     );
+
+    const [loading, setLoading] = useState(false);
+      const [delayed, setDelayed] = useState(false);
+
+      useEffect(() => {
+        let timeout;
+
+        // Handle splash screen only on first visit
+        const hasSeenSplash = localStorage.getItem('hasSeenSplash');
+        const splash = document.getElementById('splash-screen');
+
+        if (!hasSeenSplash && splash) {
+          // Mark splash as seen for future visits
+          localStorage.setItem('hasSeenSplash', 'true');
+
+          // Delay hiding for dramatic effect (optional)
+          setTimeout(() => {
+            splash.classList.add('hidden');
+            setTimeout(() => splash.remove(), 1500); // allow transition
+          }, 1500); // 1.5s splash screen
+        } else if (splash) {
+          splash.remove(); // Skip immediately if already seen
+        }
+
+        // Inertia progress loading
+        router.on('start', () => {
+          timeout = setTimeout(() => {
+            setDelayed(true);
+            setLoading(true);
+          }, 250);
+        });
+
+        router.on('finish', () => {
+          clearTimeout(timeout);
+          setLoading(false);
+          setTimeout(() => setDelayed(false), 300);
+        });
+
+        return () => {
+          router.on('start');
+          router.on('finish');
+        };
+      }, []);
 
     return (
         <Layout className="min-h-screen ">
@@ -77,6 +120,11 @@ export default function AuthenticatedLayout({ children, header }) {
                     {children}
                 </Content>
             </Layout>
+             {delayed && loading && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white bg-opacity-70">
+          <Spin size="large" tip="Loading..." />
+        </div>
+      )}
         </Layout>
     );
 }

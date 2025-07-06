@@ -42,34 +42,39 @@ const View = ({ unit }) => {
 
                     <Divider />
 
-                    <Card type="inner" title="Additional Info">
+                    <Card type="inner" title="Additional Info" className='flex flex-col gap-10 '>
                         {/* You can add unit images, gallery, or notes here */}
+{unit.thumbnail && (
+    <>
+    <p className='font-Dubai-regular text-lg'>Thumbnail Image</p>
+                            <img
+                                src={'/storage/'+unit.thumbnail}
+                                alt="Unit Thumbnail"
+                                className="w-full   max-w-64 max-h-64 object-cover shadow-lg"
+                            />
+                            </>
+                        )}
+
                         {unit.unit_images && unit.unit_images.length > 0 ? (
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 shadow-sm mt-10">
                                 {unit.unit_images.map((image, index) => (
                                     <img
                                         key={index}
-                                        src={image.url}
+                                        src={'/storage/'+image.image}
                                         onError={(e) => {
                                             e.target.onerror = null; // Prevents infinite loop
                                             e.target.src = '/login_bg.jpg'; // Fallback image
                                         }
                                         }
                                         alt={`Unit Image ${index + 1}`}
-                                        className="w-full h-auto rounded-lg"
+                                        className="w-full  size-64 object-cover"
                                     />
                                 ))}
                             </div>
                         ) : (
                             <p>No images available</p>
                         )}
-                        {unit.thumbnail && (
-                            <img
-                                src={unit.thumbnail.url}
-                                alt="Unit Thumbnail"
-                                className="w-full h-auto rounded-lg mt-4"
-                            />
-                        )}
+
 
                         {unit.amenities && unit.amenities.length > 0 && (
                             <div className="mt-4">

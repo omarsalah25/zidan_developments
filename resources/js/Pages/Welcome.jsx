@@ -6,7 +6,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import ProjectCard from '@/Components/ProjectCard';
-export default function Welcome({ auth, laravelVersion, phpVersion,projects }) {
+import CsUpdateCard from '@/Components/CsUpdateCard';
+export default function Welcome({ auth, laravelVersion, phpVersion,projects,updates }) {
     const [isMobile, setIsMobile] = useState(false);
     const { localeData } = usePage().props;
 
@@ -135,15 +136,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion,projects }) {
                             },
                         }}
                     >
-                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
-                        <SwiperSlide><div className='w-full h-80'><img src='home_img_poster.png' className='w-full h-full object-cover' /></div></SwiperSlide>
+                    {updates.map((update) => (
+                           <SwiperSlide> <CsUpdateCard update={update} /></SwiperSlide>
+                        ))}
                     </Swiper>
                 </div>
 

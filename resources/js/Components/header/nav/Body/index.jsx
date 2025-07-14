@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import styles from './style.module.scss';
 import { blur, translate } from '../../anim';
 import { Link, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-export default function Body({ links, selectedLink, setSelectedLink }) {
+ function Body({ links, selectedLink, setSelectedLink }) {
     const { localeData } = usePage().props;
     const [currentLocale, setCurrentLocale] = useState(localeData?.languageCode);
 
@@ -50,3 +50,5 @@ export default function Body({ links, selectedLink, setSelectedLink }) {
         </div>
     )
 }
+
+export default React.memo(Body)

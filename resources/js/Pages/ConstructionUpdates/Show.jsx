@@ -1,6 +1,6 @@
 import GuestLayout from '@/Layouts/GuestLayout'
 import React from 'react'
-import { usePage } from '@inertiajs/react'
+import { Head, usePage } from '@inertiajs/react'
 
 const Show = ({ update }) => {
     const { localeData } = usePage().props;
@@ -14,6 +14,7 @@ const Show = ({ update }) => {
 
     return (
         <GuestLayout>
+        <Head title={isRtl ? update.unit.title_ar : update.unit.title} />
             <div className='flex flex-col '>
                 <img src='/login_bg.jpg' className=' h-96 w-full object-cover' />
 

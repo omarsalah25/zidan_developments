@@ -1,5 +1,5 @@
 import GuestLayout from '@/Layouts/GuestLayout'
-import { usePage } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { Form, Input, Tabs } from 'antd'
 import { User2Icon } from 'lucide-react';
 import React from 'react'
@@ -41,6 +41,7 @@ const Show = ({ unit }) => {
 
     return (
         <GuestLayout>
+        <Head title={isRtl ? unit.title_ar : unit.title} />
             <div className='flex flex-col min-h-screen justify-center mt-5 bg-gray-100' dir={isRtl ? 'rtl' : 'ltr'}>
 
                 <div className='flex md:flex-row flex-col justify-around min-h-[500px] px-5 py-12 gap-10'>

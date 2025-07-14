@@ -1,6 +1,6 @@
 import React from 'react'
 import GuestLayout from '@/Layouts/GuestLayout'
-import { router, usePage } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -14,6 +14,7 @@ const Show = ({ project }) => {
 
     return (
         <GuestLayout>
+        <Head title={isRtl ? project.title_ar : project.title} />
 
             <div className='flex flex-col '>
                 <img src='/login_bg.jpg' className=' h-96 w-full object-cover' />

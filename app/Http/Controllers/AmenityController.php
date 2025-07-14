@@ -44,25 +44,32 @@ class AmenityController extends Controller
         return Inertia::render('Amenities/Show', ['amenity' => $amenity]);
     }
 
-    public function edit(Amenity $amenity)
+    public function edit($id)
     {
-        return Inertia::render('Amenities/Edit', ['amenity' => $amenity]);
+        $amenity = Amenity::findOrFail($id);
+        return Inertia::render('Admin/Amenities/Edit', ['amenity' => $amenity]);
     }
 
-    public function update(Request $request, Amenity $amenity)
-    {
-        $request->validate([
-            'title' => 'required|string',
-            'title_ar' => 'required|string',
-        ]);
+public function update(Request $request, $id)
+{
+    $amenity = Amenity::findOrFail($id);
+    $amenity->update([
+        'name' => $request->name,
+        'name_ar' => $request->name_ar,
+    ]);
 
-        $amenity->update($request->all());
-        return Redirect::route('amenities.index')->with('success', 'Amenity updated');
+    if ($request->hasFile('icon.file')) {
+        $imageFile = $request->file('icon')['file']['originFileObj'];
+        $amenity->icon = $imageFile->store('amenities', 'public');
+        $amenity->save();
     }
 
-    public function destroy(Amenity $amenity)
+    return redirect('/admin/amenities')->with('success', 'Amenity updated');
+}
+    public function destroy( $id)
     {
-        $amenity->delete();
-        return Redirect::route('amenities.index')->with('success', 'Amenity deleted');
+    $amenity = Amenity::findOrFail($id);
+    $amenity->delete();
+        return redirect()->back()->with('success', 'Amenity deleted');
     }
 }

@@ -7,11 +7,11 @@ import { Space } from 'lucide-react';
 
 const { TextArea } = Input;
 const { Option } = Select;
-const Edit = () => {
+const Edit = ({amenity}) => {
         const [form] = Form.useForm();
 
     const onFinish = (values) => {
-        router.post('/admin/amenities/store', values);
+        router.post(`/admin/amenities/${amenity.id}/update`, values);
     };
 
     return (
@@ -31,6 +31,7 @@ const Edit = () => {
                                    label="Title"
                                    hasFeedback
                                    name="name"
+                                   initialValue={amenity.name}
                                    rules={[{ required: true, message: 'Please enter the title' }]}
                                >
                                    <Input />
@@ -39,6 +40,7 @@ const Edit = () => {
                                    label="Title (Arabic)"
                                    hasFeedback
                                    name="name_ar"
+                                      initialValue={amenity.name_ar}
                                    rules={[{ required: true, message: 'Please enter the arabic title' }]}
                                >
                                    <Input />
@@ -74,6 +76,12 @@ const Edit = () => {
                                        <Button icon={<UploadOutlined />}>Upload</Button>
                                    </Upload>
                                </Form.Item>
+
+                               {amenity.icon && (
+                                   <Form.Item label="Current Icon">
+                                       <img src={`/storage/${amenity.icon}`} alt="Current Icon" className="size-12" />
+                                   </Form.Item>
+                               )}
 
                                <Form.Item>
                                    <Button type="primary" htmlType="submit">

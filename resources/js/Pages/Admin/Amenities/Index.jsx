@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import React from 'react';
-import { Table, Button, Space, Tooltip } from 'antd';
+import { Table, Button, Space, Tooltip, Popconfirm } from 'antd';
 import { Head, Link, router } from '@inertiajs/react';
 import {
     EyeOutlined,
@@ -9,7 +9,6 @@ import {
 } from '@ant-design/icons';
 
 const Index = ({ amenities }) => {
-    console.log(amenities);
     const columns = [
         {
             title: 'Amenity Name',
@@ -38,36 +37,40 @@ const Index = ({ amenities }) => {
             fixed: 'right',
             render: (_, record) => (
                 <Space size="middle">
-                    <Tooltip title="Show">
+                    {/* <Tooltip title="Show">
                         <Link href={`/admin/amenities/${record.slug}`}>
                             <Button icon={<EyeOutlined />} />
                         </Link>
-                    </Tooltip>
+                    </Tooltip> */}
                     <Tooltip title="Edit">
-                        <Link href={`/admin/amenities/${record.slug}/edit`}>
+                        <Link href={`/admin/amenities/${record.id}/edit`}>
                             <Button icon={<EditOutlined />} />
                         </Link>
                     </Tooltip>
-                    <Tooltip title="Delete">
-                        <Link href={`/admin/amenities/${record.id}/delete`}>
-                            <Button
-                                icon={<DeleteOutlined />}
-                                danger
-                            />
-                        </Link>
 
-                    </Tooltip>
+                       <Popconfirm
+                        title="Are you sure you want to delete this Amenity?"
+                        okText="Yes"
+                        cancelText="No"
+                        onConfirm={() => {
+                            // handle the delete logic here, for example:
+                            router.get(`/admin/amenities/${record.id}/delete`);
+                        }}
+                    >
+                        <Button
+                            icon={<DeleteOutlined />}
+                            danger
+                        />
+                    </Popconfirm>
+
+
                 </Space>
             ),
         },
 
     ];
 
-    const handleDelete = (id) => {
-        if (confirm('Are you sure you want to delete this amenity?')) {
-            router.delete(`/admin/amenities/${id}`);
-        }
-    };
+
 
     return (
         <AuthenticatedLayout header="Amenities">

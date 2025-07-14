@@ -125,10 +125,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('admin/amenities', [AmenityController::class, 'index'])->name('amenities.adminIndex');
     Route::get('admin/amenities/create', [AmenityController::class, 'create'])->name('amenities.create');
     Route::post('admin/amenities/store', [AmenityController::class, 'store'])->name('amenities.store');
-    Route::get('admin/amenities/{slug}', [AmenityController::class, 'AdminShow'])->name('amenities.show');
-    Route::get('admin/amenities/{slug}/edit', [AmenityController::class, 'edit'])->name('amenities.edit');
+    Route::get('admin/amenities/{id}', [AmenityController::class, 'AdminShow'])->name('amenities.show');
+    Route::get('admin/amenities/{id}/edit', [AmenityController::class, 'edit'])->name('amenities.edit');
     Route::post('admin/amenities/{id}/update', [AmenityController::class, 'update'])->name('amenities.update');
     Route::get('admin/amenities/{id}/delete', [AmenityController::class, 'destroy'])->name('amenities.delete');
+
+
+    Route::get('admin/construction-updates', [ConstructionUpdateController::class, 'AdminIndex'])->name('constructionupdates.adminIndex');
+    Route::get('admin/construction-updates/create', [ConstructionUpdateController::class, 'create'])->name('constructionupdates.create');
+    Route::post('admin/construction-updates/store', [ConstructionUpdateController::class, 'store'])->name('constructionupdates.store');
+    Route::get('admin/construction-updates/{slug}', [ConstructionUpdateController::class, 'AdminShow'])->name('constructionupdates.show');
+    Route::get('admin/construction-updates/{slug}/edit', [ConstructionUpdateController::class, 'edit'])->name('constructionupdates.edit');
+    Route::post('admin/construction-updates/{id}/update', [ConstructionUpdateController::class, 'update'])->name('constructionupdates.update');
+    Route::get('admin/construction-updates/{id}/delete', [ConstructionUpdateController::class, 'destroy'])->name('contructionupdates.delete');
 
 
 

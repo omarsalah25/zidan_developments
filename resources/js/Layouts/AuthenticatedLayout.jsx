@@ -111,7 +111,7 @@ export default function AuthenticatedLayout({ children, header }) {
                             onClick={() => setDrawerVisible(true)}
                         />
                     </div>
-                    <div className="text-xl font-semibold text-gray-800">
+                    <div className="text-xl font-semibold text-gray-800 capitalize">
                         {header}
                     </div>
                 </Header>

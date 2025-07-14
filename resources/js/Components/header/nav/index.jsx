@@ -1,6 +1,6 @@
 'use client';
 import styles from './style.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { height } from '../anim';
 import Body from './Body';
@@ -11,10 +11,9 @@ import { usePage } from '@inertiajs/react';
 
 
 
-
 export default function Index() {
-
-    const [selectedLink, setSelectedLink] = useState({ isActive: false, index: 0 });
+    const initialSelectedLink = useMemo(() => ({ isActive: false, index: 0 }), []);
+    const [selectedLink, setSelectedLink] = useState(initialSelectedLink);
     const { localeData } = usePage().props;
     const [currentLocale, setCurrentLocale] = useState(localeData?.languageCode);
 
@@ -22,9 +21,7 @@ export default function Index() {
         setCurrentLocale(localeData?.languageCode);
     }, [localeData?.languageCode]);
 
-    console.log(localeData?.data);
-
-    const links = [
+    const links = useMemo(() => [
         {
             title: localeData.data.Home,
             href: "/",
@@ -50,7 +47,8 @@ export default function Index() {
             href: "/contact",
             src: "contact.jpg"
         }
-    ]
+    ], []);
+
     return (
         <motion.div variants={height} initial="initial" animate="enter" exit="exit" className={styles.nav}>
             <div className={styles.wrapper} dir={currentLocale === 'ar' ? 'rtl' : 'ltr'}>

@@ -2,8 +2,9 @@ import styles from './style.module.scss';
 import { translate } from '../../anim';
 import { motion } from 'framer-motion';
 import { LanguageToggle } from '@/Components/ToggleButton';
+import React from 'react';
 
-export default function Footer() {
+ function Footer() {
     return (
         <div className={styles.footer}>
 
@@ -45,3 +46,4 @@ export default function Footer() {
         </div>
     )
 }
+export default React.memo(Footer)

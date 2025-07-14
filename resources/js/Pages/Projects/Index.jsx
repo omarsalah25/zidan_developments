@@ -1,6 +1,6 @@
 import ProjectCard from '@/Components/ProjectCard';
 import GuestLayout from '@/Layouts/GuestLayout'
-import { router, usePage } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
 import React from 'react'
 
 const Index = ({ projects }) => {
@@ -8,6 +8,7 @@ const Index = ({ projects }) => {
     const { localeData } = usePage().props;
     return (
         <GuestLayout>
+        <Head title={localeData.data.Projects}/>
             <div className='flex flex-col '>
                 <img src='login_bg.jpg' className=' h-96 w-full object-cover' />
 

@@ -2,7 +2,7 @@ import GuestLayout from '@/Layouts/GuestLayout'
 import { MailIcon, Phone, PinIcon } from 'lucide-react'
 import { Form, Input } from 'antd'
 import React from 'react'
-import { usePage } from '@inertiajs/react'
+import { Head, usePage } from '@inertiajs/react'
 
 const Contact = () => {
     const { localeData } = usePage().props;
@@ -10,6 +10,7 @@ const Contact = () => {
 
     return (
         <GuestLayout>
+        <Head title={localeData.data.Contact_Us || "اتصل بنا"} />
             <div className='flex flex-col bg-gray-100 '
             >
                 <img src='login_bg.jpg' className=' h-96 w-full object-cover' />

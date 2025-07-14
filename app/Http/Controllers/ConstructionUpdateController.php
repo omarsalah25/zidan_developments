@@ -14,23 +14,30 @@ class ConstructionUpdateController extends Controller
         $updates = ConstructionUpdate::with('unit:id,project_id,title,title_ar,desc,desc_ar,slug,updated_at')->orderByDesc('updated_at')->get();
         return Inertia::render('ConstructionUpdates/Index', ['updates' => $updates]);
     }
+    public function AdminIndex()
+    {
+        $updates = ConstructionUpdate::with('unit:id,project_id,title,title_ar,slug,updated_at')->orderByDesc('updated_at')->get();
+        return Inertia::render('Admin/ConstructionUpdates/Index', ['updates' => $updates]);
+    }
 
     public function create()
     {
-        $units = Unit::all();
-        return Inertia::render('ConstructionUpdates/Create', ['units' => $units]);
+    $units = Unit::doesntHave('constructionupdates')->get();
+
+        return Inertia::render('Admin/ConstructionUpdates/Create', ['units' => $units]);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'unit_id' => 'required|exists:units,id',
-            'title' => 'required|string',
-            'title_ar' => 'required|string',
-        ]);
 
-        ConstructionUpdate::create($request->all());
-        return Redirect::route('construction-updates.index')->with('success', 'Update created');
+
+         ConstructionUpdate::create([
+            'unit_id' => $request->unit_id,
+            'construction_update' => $request->construction_update,
+            'construction_update_ar' => $request->construction_update_ar,
+
+        ]);
+        return redirect(to: '/admin/construction-updates')->with('success', 'Created ');
     }
     public function show($slug)
     {
@@ -40,30 +47,40 @@ class ConstructionUpdateController extends Controller
         return Inertia::render('ConstructionUpdates/Show', ['update' => $constructionUpdate]);
     }
 
-    public function edit(ConstructionUpdate $constructionUpdate)
+     public function AdminShow($slug)
+    {
+        $unit = Unit::where('slug', $slug)->firstOrFail();
+        $constructionUpdate = ConstructionUpdate::where('unit_id', $unit->id)->with('unit')->firstOrFail();
+
+        return Inertia::render('Admin/ConstructionUpdates/View', ['update' => $constructionUpdate]);
+    }
+
+
+    public function edit($slug)
     {
         $units = Unit::all();
-        return Inertia::render('ConstructionUpdates/Edit', [
+        $unit = Unit::where('slug', $slug)->firstOrFail();
+        $constructionUpdate = ConstructionUpdate::where('unit_id', $unit->id)->with('unit')->firstOrFail();
+
+        return Inertia::render('Admin/ConstructionUpdates/Edit', [
             'update' => $constructionUpdate,
             'units' => $units
         ]);
     }
 
-    public function update(Request $request, ConstructionUpdate $constructionUpdate)
+    public function update(Request $request, $slug)
     {
-        $request->validate([
-            'unit_id' => 'required|exists:units,id',
-            'title' => 'required|string',
-            'title_ar' => 'required|string',
-        ]);
-
+        $unit = Unit::where('slug', $slug)->firstOrFail();
+        $constructionUpdate = ConstructionUpdate::where('unit_id', $unit->id)->with('unit')->firstOrFail();
         $constructionUpdate->update($request->all());
-        return Redirect::route('construction-updates.index')->with('success', 'Update updated');
+        return redirect(to: '/admin/construction-updates')->with('success', 'Updated ');
     }
 
-    public function destroy(ConstructionUpdate $constructionUpdate)
+      public function destroy($Id)
     {
-        $constructionUpdate->delete();
-        return Redirect::route('construction-updates.index')->with('success', 'Update deleted');
+        $ConstructionUpdate = ConstructionUpdate::findOrFail($Id);
+        $ConstructionUpdate->delete();
+        return redirect()->back()->with('success', 'Update deleted');
     }
+
 }

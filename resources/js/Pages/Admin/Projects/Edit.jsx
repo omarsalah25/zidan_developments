@@ -8,7 +8,6 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 const Edit = ({ project }) => {
-    console.log(project);
     const [form] = Form.useForm();
 
     const onFinish = (values) => {

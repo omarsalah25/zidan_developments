@@ -4,7 +4,6 @@ import { Head, usePage } from '@inertiajs/react';
 import React from 'react'
 
 const ConstructionUpdate = ({ updates }) => {
-    console.log(updates)
     const { localeData } = usePage().props;
     return (
         <GuestLayout>

@@ -4,7 +4,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import dayjs from 'dayjs';
 
 const View = ({ unit }) => {
-    console.log(unit);
     // Import dayjs at the top of your file
     // import dayjs from 'dayjs';
 

@@ -36,7 +36,6 @@ export function LanguageToggle() {
                 return "https://flagpedia.net/data/flags/h80/gb.png";
         }
     };
-    console.log(currentLocale, newLocale);
     return (
         <button
             onClick={toggleLocale}

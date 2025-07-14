@@ -9,7 +9,6 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 
 const Show = ({ unit }) => {
-    console.log(unit)
     const { localeData } = usePage().props;
     const isRtl = localeData.languageCode === 'ar' ? true : false;
     const items = [

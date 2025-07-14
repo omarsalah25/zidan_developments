@@ -5,7 +5,6 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { router } from '@inertiajs/react';
 
 const Edit = ({ update }) => {
-    console.log('Update data:', update);
     const [form] = Form.useForm();
     const [constructionUpdate, setConstructionUpdate] = useState(update.construction_update);
     const [constructionUpdateAr, setConstructionUpdateAr] = useState(update.construction_update_ar);
@@ -62,11 +61,6 @@ const configAr = React.useMemo(() => ({
         });
 
 
-        console.log({
-            ...values,
-            construction_update: constructionUpdate,
-            construction_update_ar: constructionUpdateAr
-        });
     };
 
     return (

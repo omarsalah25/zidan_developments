@@ -7,7 +7,6 @@ const CsUpdateCard = ({ update }) => {
     const { title, description, image, unit } = update;
     const { localeData } = usePage().props;
     const isRtl = localeData.languageCode === 'ar';
-    console.log(unit)
     const truncateText = (text, limit) => {
         return text.length > limit ? text.substring(0, limit) + '...' : text;
     };

@@ -22,7 +22,6 @@ export default function Welcome({ auth, laravelVersion, phpVersion,projects,upda
         };
     }
         , []);
-    console.log(localeData);
     return (
         <GuestLayout>
             <Head title={localeData.data.ZidanDevelopments} />

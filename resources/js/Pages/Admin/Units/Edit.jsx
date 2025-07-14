@@ -10,14 +10,12 @@ const { Option } = Select;
 
 const Edit = ({projects,amenities,unit}) => {
     const [form] = Form.useForm();
-    console.log(unit.unit_images)
 // Set initial selected amenities from unit.amenities (assuming it's an array of IDs)
 const initialAmenities = unit.amenities ? unit.amenities.map(a => a.id || a) : [];
     const onFinish = (values) => {
         router.post(`/admin/units/${unit.id}/update`, values);
     };
     const handleImageRemove = (file) => {
-        console.log('Removing file:', file);
         router.get(`/admin/unitImage/${file.id}/delete`);
     };
 

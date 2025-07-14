@@ -4,7 +4,6 @@ import { Head, router, usePage } from '@inertiajs/react';
 import React from 'react'
 
 const Index = ({ projects }) => {
-    console.log(projects)
     const { localeData } = usePage().props;
     return (
         <GuestLayout>

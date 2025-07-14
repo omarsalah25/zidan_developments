@@ -9,7 +9,6 @@ import {
 } from '@ant-design/icons';
 
 const Index = ({ updates }) => {
-    console.log(updates);
     const columns = [
         {
             title: 'Unit Name',

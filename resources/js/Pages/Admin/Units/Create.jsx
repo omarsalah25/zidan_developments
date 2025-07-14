@@ -10,7 +10,6 @@ const { Option } = Select;
 
 const Create = ({projects,amenities}) => {
     const [form] = Form.useForm();
-    console.log(amenities)
 
     const onFinish = (values) => {
         router.post('/admin/units/store', values);

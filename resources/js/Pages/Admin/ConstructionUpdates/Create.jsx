@@ -54,11 +54,7 @@ const Create = ({ units }) => {
             construction_update: constructionUpdate,
             construction_update_ar: constructionUpdateAr
         });
-        console.log({
-            ...values,
-            construction_update: constructionUpdate,
-            construction_update_ar: constructionUpdateAr
-        });
+
     };
 
     return (

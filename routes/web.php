@@ -114,12 +114,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('admin/units/{slug}', [UnitController::class, 'AdminShow'])->name('units.show');
     Route::get('admin/units/{slug}/edit', [UnitController::class, 'edit'])->name('units.edit');
     Route::post('admin/units/{id}/update', [UnitController::class, 'update'])->name('units.update');
+    Route::get('admin/unitImage/{unitImageId}/delete', [UnitController::class, 'destroyUnitImage'])->name('units.delete');
     Route::get('admin/units/{id}/delete', [UnitController::class, 'destroy'])->name('units.delete');
 
     /**
      * Amenities
      */
-    Route::resource('amenities', AmenityController::class);
+    // Route::resource('amenities', AmenityController::class);
+
+    Route::get('admin/amenities', [AmenityController::class, 'index'])->name('amenities.adminIndex');
+    Route::get('admin/amenities/create', [AmenityController::class, 'create'])->name('amenities.create');
+    Route::post('admin/amenities/store', [AmenityController::class, 'store'])->name('amenities.store');
+    Route::get('admin/amenities/{slug}', [AmenityController::class, 'AdminShow'])->name('amenities.show');
+    Route::get('admin/amenities/{slug}/edit', [AmenityController::class, 'edit'])->name('amenities.edit');
+    Route::post('admin/amenities/{id}/update', [AmenityController::class, 'update'])->name('amenities.update');
+    Route::get('admin/amenities/{id}/delete', [AmenityController::class, 'destroy'])->name('amenities.delete');
+
 
 
 });

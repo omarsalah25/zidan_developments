@@ -3,25 +3,29 @@ import { Form, Input, Button, Select, Card, Upload } from 'antd';
 import { Head, router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { UploadOutlined } from '@ant-design/icons';
-import { Space } from 'lucide-react';
+import { Space, Trash } from 'lucide-react';
 
 const { TextArea } = Input;
 const { Option } = Select;
 
 const Edit = ({projects,amenities,unit}) => {
     const [form] = Form.useForm();
-    console.log(unit)
+    console.log(unit.unit_images)
 // Set initial selected amenities from unit.amenities (assuming it's an array of IDs)
 const initialAmenities = unit.amenities ? unit.amenities.map(a => a.id || a) : [];
     const onFinish = (values) => {
-        router.post('/admin/units/store', values);
+        router.post(`/admin/units/${unit.id}/update`, values);
+    };
+    const handleImageRemove = (file) => {
+        console.log('Removing file:', file);
+        router.get(`/admin/unitImage/${file.id}/delete`);
     };
 
     return (
         <AuthenticatedLayout >
-            <Head title={`Create Unit`} />
+            <Head title={`Edit Unit`} />
             <div className="max-w-4xl mx-auto mt-6">
-                <Card title="Create Unit" bordered>
+                <Card title="Edit Unit" bordered>
                     <Form
                         form={form}
                         layout="vertical"
@@ -32,7 +36,7 @@ const initialAmenities = unit.amenities ? unit.amenities.map(a => a.id || a) : [
                             desc_ar: unit.desc_ar,
 
                         }}
-                                                onFinish={onFinish}
+                         onFinish={onFinish}
                     >
 
 
@@ -171,7 +175,6 @@ const initialAmenities = unit.amenities ? unit.amenities.map(a => a.id || a) : [
                                 listType="picture"
                                 accept="image/*"
                                 multiple
-                                fileList={[{...unit.unit_images,name:`image${unit.unit_images.id}`}]}
                                 beforeUpload={(file) => {
                                     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
                                     if (!isJpgOrPng) {
@@ -184,23 +187,48 @@ const initialAmenities = unit.amenities ? unit.amenities.map(a => a.id || a) : [
                                         message.success(`${info.file.name} file uploaded successfully`);
                                     }
                                 }}
-                                onRemove={(info)=>console.log(info)}
+                                onRemove={handleImageRemove}
                             >
                                 <Button icon={<UploadOutlined />}>Upload</Button>
                             </Upload>
                         </Form.Item>
 
 
+                        {unit.unit_images && unit.unit_images.length > 0 ? (
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 shadow-sm mt-10">
+                                {unit.unit_images.map((image, index) => (
+                                    <div key={index} className="relative size-64">
+                                        <img
+                                            src={'/storage/' + image.image}
+                                            alt={`Unit Image ${index + 1}`}
+                                            className="w-full h-full   object-cover rounded-lg shadow-md"
+                                        />
+                                        <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+ <Button
+                                            type="link"
+                                            danger
+                                            className=""
+                                            onClick={() => handleImageRemove(image)}
+                                        >
+                                            <span className="text-red-500"><Trash/></span>
+                                        </Button>                                        </div>
 
-                        {/*
-                        <img src={'/storage/' + project.image}
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="text-gray-500 mt-4">No images uploaded yet.</p>
+                        )}
+
+                        {/* <img src={'/storage/' + project.image}
                             onError={(e) => e.target.src = '/login_bg.jpg'}
                             alt="Project Image"
                             className='size-64 object-contain p-2 bg-black my-5' /> */}
 
-                        <Form.Item>
+                        <Form.Item
+                        className='mt-6'>
                             <Button type="primary" htmlType="submit">
-                                Create Unit
+                                Edit Unit
                             </Button>
                         </Form.Item>
                     </Form>

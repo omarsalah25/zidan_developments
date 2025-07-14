@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateUnitRequest;
 use App\Models\Amenity;
 use App\Models\Project;
 use App\Models\Unit;
+use App\Models\UnitImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -79,7 +80,7 @@ class UnitController extends Controller
     $unit->save();
 
 
-    return redirect('/admin/units')->with('success', 'Units created');
+    return redirect(to: '/admin/units')->with('success', 'Units created');
 }
 
 
@@ -107,20 +108,64 @@ class UnitController extends Controller
         ]);
     }
 
-    public function update(UpdateUnitRequest $request, Unit $unit)
-    {
-        $unit->update($request->validated());
+public function update(Request $request, $id)
+{
 
-        if ($request->has('amenities')) {
-            $unit->amenities()->sync($request->amenities);
-        }
+    // dd($id);
+    // dd($request->all());
+    // Validate the request
+    $unit = Unit::findOrFail($id);
 
-        return Redirect::route('units.index')->with('success', 'Unit updated');
+    // Update basic fields
+    $unit->update([
+        'title' => $request->title,
+        'title_ar' => $request->title_ar,
+        'desc' => $request->desc ?? null,
+        'desc_ar' => $request->desc_ar ?? null,
+        'status' => $request->status,
+        'project_id' => $request->project_id,
+        'slug' => \Illuminate\Support\Str::slug($request->title),
+    ]);
+
+    // Sync amenities if provided
+    if (!empty($request->amenities)) {
+        $unit->amenities()->sync($request->amenities);
     }
 
-    public function destroy(Unit $unit)
+    // Handle thumbnail update
+    if ($request->hasFile('thumbnail.file.originFileObj')) {
+        $imageFile = $request->file('thumbnail')['file']['originFileObj'];
+        $unit->thumbnail = $imageFile->store('units', 'public');
+    }
+
+    // Handle additional images
+    if (!empty($request->images) && is_array($request->images)) {
+        foreach ($request->images as $img) {
+            if (isset($img['originFileObj']) && $img['originFileObj']->isValid()) {
+                $storedImage = $img['originFileObj']->store('unit-images', 'public');
+                $unit->unitImages()->create([
+                    'image' => $storedImage,
+                ]);
+            }
+        }
+    }
+
+    $unit->save();
+
+    return redirect('/admin/units')->with('success', 'Unit updated successfully');
+}
+
+    public function destroy($unitId)
     {
+        $unit = Unit::findOrFail($unitId);
         $unit->delete();
         return Redirect::route('units.index')->with('success', 'Unit deleted');
     }
+    public function destroyUnitImage($unitImageId)
+    {
+        $unitImage = UnitImage::findOrFail($unitImageId);
+        $unitImage->delete();
+        return redirect()->back()->with('success', 'Unit image deleted successfully');
+    }
+
 }

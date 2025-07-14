@@ -12,23 +12,31 @@ class AmenityController extends Controller
     public function index()
     {
         $amenities = Amenity::all();
-        return Inertia::render('Amenities/Index', ['amenities' => $amenities]);
+        return Inertia::render('Admin/Amenities/Index', ['amenities' => $amenities]);
     }
 
     public function create()
     {
-        return Inertia::render('Amenities/Create');
+        return Inertia::render('Admin/Amenities/Create');
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string',
-            'title_ar' => 'required|string',
-        ]);
 
-        Amenity::create($request->all());
-        return Redirect::route('amenities.index')->with('success', 'Amenity created');
+
+         $amenity = Amenity::create([
+        'name' => $request->name,
+        'name_ar' => $request->name_ar,
+    ]);
+
+      if ($request->hasFile('icon.file')) {
+        $imageFile = $request->file('icon')['file'];
+        // dd($imageFile);
+        $amenity->icon = $imageFile->store('amenities', 'public');
+    }
+    $amenity->save();
+
+    return redirect(to: '/admin/amenities')->with('success', 'amenity created');
     }
 
     public function show(Amenity $amenity)

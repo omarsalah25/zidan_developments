@@ -29,8 +29,8 @@ const Show = ({ unit }) => {
             children: <div className='flex justify-center items-center gap-5'>
                 {unit.amenities.map((amenity) => (
                     <div className='flex flex-col justify-center items-center gap-2'>
-                        <div className='w-20 p-5 flex justify-center items-center bg-black'>
-                            <User2Icon className='text-white w-10 h-10 object-cover' />
+                        <div className='w-20 p-5 flex justify-center items-center bg-gray-200/20'>
+                            <img src={'/storage/' + amenity.icon} className='w-10 h-10 object-cover ' />
                         </div>
                         <p className='text-sm'>{isRtl ? amenity.name_ar : amenity.name}</p>
                     </div>
